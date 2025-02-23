@@ -1,0 +1,32 @@
+name: Run Puppeteer Script
+
+on:
+  push:
+    branches:
+      - main  # Run on push to the main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-puppeteer:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+    
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Use Node.js version 18 or your preferred version
+
+      # Step 3: Install dependencies (with --no-bin-links option)
+      - name: Install Dependencies
+        run: npm install puppeteer --no-bin-links
+
+      # Step 4: Run the script
+      - name: Run Puppeteer Script
+        run: node main.js  # Replace this with the actual script file name
