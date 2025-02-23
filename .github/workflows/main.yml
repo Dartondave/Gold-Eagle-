@@ -26,6 +26,7 @@ jobs:
       # Step 3: Install dependencies (with --no-bin-links option)
       - name: Install Dependencies
         run: npm install puppeteer --no-bin-links
+             npm install node-fetch --no-bin-links
 
       # Step 4: Run the script
       - name: Run Puppeteer Script
