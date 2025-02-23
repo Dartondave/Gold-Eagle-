@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm ci --no-bin-links
+        run: npm install node-fetch --no-bin-links  # Use npm install instead of npm ci
 
       - name: Run automation script
         run: node main.mjs
