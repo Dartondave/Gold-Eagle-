@@ -1,25 +1,39 @@
-name: Gold Eagle Automation
+name: Run Gold Eagle
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  run-script:
+  run-selenium:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
 
-      - name: Install dependencies
-        run: npm install node-fetch --no-bin-links  # Use npm install instead of npm ci
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install selenium requests
+        pip install webdriver-manager
+        pip install selenium-wire
+        pip install selenium-wire webdriver-manager blinker==1.4
 
-      - name: Run automation script
-        run: node main.mjs
+    - name: Download ChromeDriver
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
+        wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$(wget -q -O - https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
+        unzip /tmp/chromedriver.zip -d /usr/local/bin/
+
+    - name: Run Selenium script
+      run: |
+        python main.py
