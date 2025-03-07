@@ -26,6 +26,10 @@ jobs:
         pip install webdriver-manager
         pip install selenium-wire
         pip install selenium-wire webdriver-manager blinker==1.4
+        pip install requests
+        pip install uuid
+        pip install time
+        pip install random
 
     - name: Download ChromeDriver
       run: |
@@ -36,4 +40,4 @@ jobs:
 
     - name: Run Selenium script
       run: |
-        python main.py
+        python gold-eagle.py
